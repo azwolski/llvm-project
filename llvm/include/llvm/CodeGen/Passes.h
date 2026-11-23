@@ -14,7 +14,6 @@
 #ifndef LLVM_CODEGEN_PASSES_H
 #define LLVM_CODEGEN_PASSES_H
 
-#include "llvm/ADT/StringRef.h"
 #include "llvm/CodeGen/RegAllocCommon.h"
 #include "llvm/Support/CodeGen.h"
 #include "llvm/Support/Compiler.h"
@@ -581,7 +580,7 @@ createMIRAddFSDiscriminatorsPass(sampleprof::FSDiscriminatorPass P);
 
 /// Read Flow Sensitive Profile.
 LLVM_ABI FunctionPass *
-createMIRProfileLoaderPass(StringRef File, StringRef RemappingFile,
+createMIRProfileLoaderPass(std::string File, std::string RemappingFile,
                            sampleprof::FSDiscriminatorPass P,
                            IntrusiveRefCntPtr<vfs::FileSystem> FS);
 

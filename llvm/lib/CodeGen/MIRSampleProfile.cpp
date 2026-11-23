@@ -79,10 +79,11 @@ INITIALIZE_PASS_END(MIRProfileLoaderPass, DEBUG_TYPE, "Load MIR Sample Profile",
 char &llvm::MIRProfileLoaderPassID = MIRProfileLoaderPass::ID;
 
 FunctionPass *
-llvm::createMIRProfileLoaderPass(StringRef File, StringRef RemappingFile,
+llvm::createMIRProfileLoaderPass(std::string File, std::string RemappingFile,
                                  FSDiscriminatorPass P,
                                  IntrusiveRefCntPtr<vfs::FileSystem> FS) {
-  return new MIRProfileLoaderPass(File, RemappingFile, P, std::move(FS));
+  return new MIRProfileLoaderPass(std::move(File), std::move(RemappingFile), P,
+                                  std::move(FS));
 }
 
 namespace llvm {
@@ -342,7 +343,7 @@ bool MIRProfileLoader::runOnFunction(MachineFunction &MF) {
 } // namespace llvm
 
 MIRProfileLoaderPass::MIRProfileLoaderPass(
-    StringRef FileName, StringRef RemappingFileName, FSDiscriminatorPass P,
+    std::string FileName, std::string RemappingFileName, FSDiscriminatorPass P,
     IntrusiveRefCntPtr<vfs::FileSystem> FS)
     : MachineFunctionPass(ID), P(P) {
   LowBit = getFSPassBitBegin(P);
