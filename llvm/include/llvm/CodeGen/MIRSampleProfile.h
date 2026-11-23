@@ -20,7 +20,6 @@
 #include "llvm/Support/Discriminator.h"
 #include "llvm/Support/VirtualFileSystemFwd.h"
 #include <memory>
-#include <string>
 
 namespace llvm {
 class AnalysisUsage;
@@ -40,8 +39,8 @@ class LLVM_ABI MIRProfileLoaderPass : public MachineFunctionPass {
 public:
   static char ID;
   /// FS bits will only use the '1' bits in the Mask.
-  MIRProfileLoaderPass(std::string FileName = "",
-                       std::string RemappingFileName = "",
+  MIRProfileLoaderPass(StringRef FileName = {},
+                       StringRef RemappingFileName = {},
                        FSDiscriminatorPass P = FSDiscriminatorPass::Pass1,
                        IntrusiveRefCntPtr<vfs::FileSystem> FS = nullptr);
 
